@@ -47,7 +47,7 @@
     </div>
   </section>
   
- <!-- Learn -->
+<!-- Learn -->
 <section id="learn" class="max-w-4xl mx-auto px-6 py-20" x-data>
   <h2 class="text-4xl font-bold mb-10">Learn Lacrosse (Properly)</h2>
   <p class="text-neutral-300 mb-10">
@@ -60,11 +60,15 @@
     x-data="{ open: false, inView: false }" 
     x-intersect:enter="inView = true" 
     x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105' : ''"
+    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
   >
     <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-extrabold">1️⃣ Check Out the Club Early</span>
-      <span x-text="open ? '−' : '+' " class="text-2xl font-bold"></span>
+      <span 
+        x-text="open ? '−' : '+' " 
+        class="text-2xl font-bold transform transition-all duration-300"
+        :class="open ? 'animate-bounce' : ''"
+      ></span>
     </button>
     <div x-show="open" x-transition class="px-6 pb-6">
       <ul class="space-y-2 text-neutral-200 mb-3">
@@ -84,11 +88,15 @@
     x-data="{ open: false, inView: false }" 
     x-intersect:enter="inView = true" 
     x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105' : ''"
+    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
   >
     <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-extrabold">2️⃣ Sort Your Gear Basics</span>
-      <span x-text="open ? '−' : '+' " class="text-2xl font-bold"></span>
+      <span 
+        x-text="open ? '−' : '+' " 
+        class="text-2xl font-bold transform transition-all duration-300"
+        :class="open ? 'animate-bounce' : ''"
+      ></span>
     </button>
     <div x-show="open" x-transition class="px-6 pb-6">
       <ul class="space-y-2 text-neutral-200 mb-3">
@@ -108,11 +116,15 @@
     x-data="{ open: false, inView: false }" 
     x-intersect:enter="inView = true" 
     x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105' : ''"
+    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
   >
     <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-extrabold">3️⃣ Learn the Core Skills (Wallball First!)</span>
-      <span x-text="open ? '−' : '+' " class="text-2xl font-bold"></span>
+      <span 
+        x-text="open ? '−' : '+' " 
+        class="text-2xl font-bold transform transition-all duration-300"
+        :class="open ? 'animate-bounce' : ''"
+      ></span>
     </button>
     <div x-show="open" x-transition class="px-6 pb-6">
       <ul class="space-y-2 text-neutral-200 mb-3">
@@ -132,11 +144,15 @@
     x-data="{ open: false, inView: false }" 
     x-intersect:enter="inView = true" 
     x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105' : ''"
+    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
   >
     <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-extrabold">4️⃣ Understand the Field & Positions</span>
-      <span x-text="open ? '−' : '+' " class="text-2xl font-bold"></span>
+      <span 
+        x-text="open ? '−' : '+' " 
+        class="text-2xl font-bold transform transition-all duration-300"
+        :class="open ? 'animate-bounce' : ''"
+      ></span>
     </button>
     <div x-show="open" x-transition class="px-6 pb-6">
       <ul class="space-y-2 text-neutral-200 mb-3">
@@ -156,11 +172,15 @@
     x-data="{ open: false, inView: false }" 
     x-intersect:enter="inView = true" 
     x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105' : ''"
+    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
   >
     <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
       <span class="text-2xl font-extrabold">5️⃣ Join the Social Side</span>
-      <span x-text="open ? '−' : '+' " class="text-2xl font-bold"></span>
+      <span 
+        x-text="open ? '−' : '+' " 
+        class="text-2xl font-bold transform transition-all duration-300"
+        :class="open ? 'animate-bounce' : ''"
+      ></span>
     </button>
     <div x-show="open" x-transition class="px-6 pb-6">
       <ul class="space-y-2 text-neutral-200 mb-3">
@@ -175,9 +195,8 @@
   </div>
 </section>
 
-<!-- Alpine.js for collapsible + scroll highlight -->
+<!-- Alpine.js for collapsible + scroll highlight + bounce -->
 <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
   <!-- Culture -->
   <section id="culture" class="max-w-4xl mx-auto px-6 py-20">
     <h2 class="text-4xl font-bold mb-6">UK Uni Lacrosse Culture</h2>
