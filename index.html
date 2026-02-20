@@ -9,7 +9,7 @@
 <body class="bg-neutral-950 text-neutral-100 font-sans select-none">
 
   <!-- Canvas for interactive balls -->
-  <canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-auto"></canvas>
+  <canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
 
   <!-- Nav -->
   <nav class="flex justify-between items-center px-6 py-4 border-b border-neutral-800">
@@ -200,7 +200,7 @@ const canvas = document.getElementById('ballCanvas');
 const ctx = canvas.getContext('2d');
 let balls = [];
 let grabbedBall = null;
-let mouse = {x:0, y:0, prevX:0, prevY:0, vx:0, vy:0};
+let mouse = {x:0, y:0, vx:0, vy:0, prevX:0, prevY:0};
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -210,72 +210,64 @@ window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
 class Ball {
-  constructor(x, y, radius = 20) {
+  constructor(x, y, radius=20) {
     this.x = x;
     this.y = y;
     this.radius = radius;
     this.color = Math.random() < 0.5 ? 'yellow' : 'white';
     this.vx = 0;
     this.vy = 0;
-    this.gravity = 0.3;
-    this.friction = 0.85;
+    this.gravity = 0.2;
+    this.friction = 0.8;
   }
-
   draw() {
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
     ctx.fillStyle = this.color;
     ctx.fill();
   }
-
   update() {
     if (grabbedBall !== this) {
       this.vy += this.gravity;
-      this.x += this.vx;
-      this.y += this.vy;
+      this.x += this.vx; this.y += this.vy;
 
       // bounce walls
-      if (this.x + this.radius > canvas.width) { this.x = canvas.width - this.radius; this.vx *= -this.friction; }
-      if (this.x - this.radius < 0) { this.x = this.radius; this.vx *= -this.friction; }
-      if (this.y + this.radius > canvas.height) { this.y = canvas.height - this.radius; this.vy *= -this.friction; }
-      if (this.y - this.radius < 0) { this.y = this.radius; this.vy *= -this.friction; }
+      if (this.x+this.radius>canvas.width){ this.x=canvas.width-this.radius; this.vx*=-this.friction; }
+      if (this.x-this.radius<0){ this.x=this.radius; this.vx*=-this.friction; }
+      if (this.y+this.radius>canvas.height){ this.y=canvas.height-this.radius; this.vy*=-this.friction; }
+      if (this.y-this.radius<0){ this.y=this.radius; this.vy*=-this.friction; }
 
-      // collide with other balls
-      balls.forEach(other => {
-        if (other !== this) {
-          const dx = other.x - this.x;
-          const dy = other.y - this.y;
-          const dist = Math.hypot(dx, dy);
-          if (dist < this.radius + other.radius) {
-            const angle = Math.atan2(dy, dx);
-            const overlap = this.radius + other.radius - dist;
+      // bounce other balls
+      balls.forEach(other=>{
+        if(other!==this){
+          const dx=other.x-this.x;
+          const dy=other.y-this.y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<this.radius+other.radius){
+            const angle=Math.atan2(dy,dx);
+            const overlap=this.radius+other.radius-dist;
+            this.x-=Math.cos(angle)*overlap/2;
+            this.y-=Math.sin(angle)*overlap/2;
+            other.x+=Math.cos(angle)*overlap/2;
+            other.y+=Math.sin(angle)*overlap/2;
 
-            this.x -= Math.cos(angle) * overlap / 2;
-            this.y -= Math.sin(angle) * overlap / 2;
-            other.x += Math.cos(angle) * overlap / 2;
-            other.y += Math.sin(angle) * overlap / 2;
-
-            const vxTemp = this.vx; const vyTemp = this.vy;
-            this.vx = other.vx * 0.9; this.vy = other.vy * 0.9;
-            other.vx = vxTemp * 0.9; other.vy = vyTemp * 0.9;
+            const vxTemp=this.vx; const vyTemp=this.vy;
+            this.vx=other.vx*0.8; this.vy=other.vy*0.8;
+            other.vx=vxTemp*0.8; other.vy=vyTemp*0.8;
           }
         }
       });
 
     } else {
-      // while dragging, follow mouse
-      this.vx = mouse.vx;
-      this.vy = mouse.vy;
-      this.x = mouse.x;
-      this.y = mouse.y;
+      this.vx=mouse.vx; this.vy=mouse.vy;
+      this.x=mouse.x; this.y=mouse.y;
     }
-
     this.draw();
   }
 }
 
-// track mouse movement
-canvas.addEventListener('mousemove', e => {
+// Event delegation on document
+document.addEventListener('mousemove', e => {
   mouse.prevX = mouse.x;
   mouse.prevY = mouse.y;
   mouse.x = e.clientX;
@@ -284,21 +276,22 @@ canvas.addEventListener('mousemove', e => {
   mouse.vy = mouse.y - mouse.prevY;
 });
 
-// left-click to create and drag ball
-canvas.addEventListener('mousedown', e => {
-  if (e.button === 0) {
-    const newBall = new Ball(e.clientX, e.clientY);
-    balls.push(newBall);
-    grabbedBall = newBall;
+document.addEventListener('mousedown', e => {
+  if (e.button === 2) { // right-click
+    grabbedBall = new Ball(e.clientX, e.clientY);
+    balls.push(grabbedBall);
   }
 });
-canvas.addEventListener('mouseup', e => {
-  if (e.button === 0) grabbedBall = null;
+
+document.addEventListener('mouseup', e => {
+  if (e.button === 2) grabbedBall = null;
 });
 
-// animation loop
+document.addEventListener('contextmenu', e => e.preventDefault()); // disable context menu
+
+// Animation loop
 function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   balls.forEach(b => b.update());
   requestAnimationFrame(animate);
 }
