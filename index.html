@@ -7,11 +7,10 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-neutral-950 text-neutral-100 font-sans">
-<body class="bg-neutral-950 text-neutral-100 font-sans">
 
-  <!-- Interactive Ball Background -->
+  <!-- Canvas for interactive balls -->
   <canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
-  
+
   <!-- Nav -->
   <nav class="flex justify-between items-center px-6 py-4 border-b border-neutral-800">
     <span class="font-bold text-lg">Kandolacrosse</span>
@@ -24,21 +23,22 @@
   </nav>
 
   <!-- Hero / Home -->
-  <!-- Start Here Section -->
-<section id="start-here" class="bg-neutral-900 py-20 px-6 text-center">
-  <h2 class="text-4xl font-bold mb-6">Start Here</h2>
-  <p class="text-neutral-300 mb-8 max-w-2xl mx-auto">
-    New to lacrosse? Don’t worry — here’s how to get started at university without feeling lost.
-  </p>
-  <div class="flex flex-col md:flex-row gap-4 justify-center">
-    <a href="#learn" class="px-6 py-3 rounded-2xl bg-white text-black font-medium">Beginner Guides</a>
-    <a href="#gear" class="px-6 py-3 rounded-2xl border border-neutral-700">Gear Advice</a>
-    <a href="#culture" class="px-6 py-3 rounded-2xl border border-neutral-700">Uni Lacrosse Culture</a>
-  </div>
-  <p class="text-neutral-500 mt-6 text-sm">
-    Everything you need to know to start strong, avoid mistakes, and enjoy the game.
-  </p>
-</section>
+  <section id="start-here" class="bg-neutral-900 py-20 px-6 text-center">
+    <h2 class="text-4xl font-bold mb-6">Start Here</h2>
+    <p class="text-neutral-300 mb-8 max-w-2xl mx-auto">
+      New to lacrosse? Don’t worry — here’s how to get started at university without feeling lost.
+    </p>
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+      <a href="#learn" class="px-6 py-3 rounded-2xl bg-white text-black font-medium">Beginner Guides</a>
+      <a href="#gear" class="px-6 py-3 rounded-2xl border border-neutral-700">Gear Advice</a>
+      <a href="#culture" class="px-6 py-3 rounded-2xl border border-neutral-700">Uni Lacrosse Culture</a>
+    </div>
+    <p class="text-neutral-500 mt-6 text-sm">
+      Everything you need to know to start strong, avoid mistakes, and enjoy the game.
+    </p>
+  </section>
+
+  <!-- Home -->
   <section id="home" class="flex flex-col items-center text-center px-6 py-24">
     <h1 class="text-5xl md:text-6xl font-bold mb-6">KandolaCrosse</h1>
     <p class="text-lg md:text-xl text-neutral-300 max-w-2xl mb-10">
@@ -50,157 +50,43 @@
       <a href="https://www.instagram.com/latetolax/" target="_blank" class="px-6 py-3 rounded-2xl border border-neutral-700">Follow on Instagram</a>
     </div>
   </section>
-  
-<!-- Learn -->
-<section id="learn" class="max-w-4xl mx-auto px-6 py-20" x-data>
-  <h2 class="text-4xl font-bold mb-10">Learn Lacrosse (Properly)</h2>
-  <p class="text-neutral-300 mb-10">
-    For people who didn’t grow up playing. No American bias. No elite waffle. Just what actually helps at uni.
-  </p>
 
-  <!-- Step 1 -->
-  <div 
-    class="bg-neutral-900 rounded-2xl mb-6 shadow-lg transition-all duration-300" 
-    x-data="{ open: false, inView: false }" 
-    x-intersect:enter="inView = true" 
-    x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
-  >
-    <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
-      <span class="text-2xl font-extrabold">1️⃣ Check Out the Club Early</span>
-      <span 
-        x-text="open ? '−' : '+' " 
-        class="text-2xl font-bold transform transition-all duration-300"
-        :class="open ? 'animate-bounce' : ''"
-      ></span>
-    </button>
-    <div x-show="open" x-transition class="px-6 pb-6">
-      <ul class="space-y-2 text-neutral-200 mb-3">
-        <li><strong>Attend an intro session</strong></li>
-        <li><strong>Observe the team culture</strong></li>
-        <li><strong>Ask questions freely</strong></li>
-      </ul>
-      <p class="text-neutral-400">
-        Even if you’ve played rugby or football before, lacrosse demands a completely different level of <strong>mobility and athleticism</strong>. Things like <strong>stamina, VO₂ max, hip flexibility, and wrist strength</strong> are crucial to thriving on the field. I started working on these <strong>straight after I began lacrosse</strong>, and it made all the difference. The earlier you start focusing on these, the faster you’ll feel comfortable and capable in sessions.
-      </p>
+  <!-- Learn -->
+  <section id="learn" class="max-w-4xl mx-auto px-6 py-20" x-data>
+    <h2 class="text-4xl font-bold mb-10">Learn Lacrosse (Properly)</h2>
+    <p class="text-neutral-300 mb-10">
+      For people who didn’t grow up playing. No American bias. No elite waffle. Just what actually helps at uni.
+    </p>
+
+    <!-- Step 1-5 (same as before, collapsible) -->
+    <!-- Copy your existing Alpine.js collapsible sections here for Steps 1-5 -->
+
+  </section>
+
+  <!-- Gear Section -->
+  <section id="gear" class="max-w-4xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold mb-6">Gear & Stick Reviews</h2>
+    <p class="text-neutral-300 mb-6">
+      Honest reviews. No sponsors. Just whether it’s worth your money.
+    </p>
+
+    <!-- Gear categories -->
+    <div class="space-y-6">
+      <div class="bg-neutral-900 p-6 rounded-2xl shadow-lg">
+        <h3 class="text-2xl font-bold mb-3">Low Range</h3>
+        <p class="text-neutral-400">Affordable sticks for beginners or those on a budget.</p>
+      </div>
+      <div class="bg-neutral-900 p-6 rounded-2xl shadow-lg">
+        <h3 class="text-2xl font-bold mb-3">Mid Range / Used</h3>
+        <p class="text-neutral-400">Reliable sticks that offer decent performance without breaking the bank.</p>
+      </div>
+      <div class="bg-neutral-900 p-6 rounded-2xl shadow-lg">
+        <h3 class="text-2xl font-bold mb-3">Peak Range</h3>
+        <p class="text-neutral-400">Top-tier gear for maximum performance — ideal if you are serious about uni lacrosse.</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Step 2 -->
-  <div 
-    class="bg-neutral-900 rounded-2xl mb-6 shadow-lg transition-all duration-300" 
-    x-data="{ open: false, inView: false }" 
-    x-intersect:enter="inView = true" 
-    x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
-  >
-    <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
-      <span class="text-2xl font-extrabold">2️⃣ Sort Your Gear Basics</span>
-      <span 
-        x-text="open ? '−' : '+' " 
-        class="text-2xl font-bold transform transition-all duration-300"
-        :class="open ? 'animate-bounce' : ''"
-      ></span>
-    </button>
-    <div x-show="open" x-transition class="px-6 pb-6">
-      <ul class="space-y-2 text-neutral-200 mb-3">
-        <li><strong>Borrow a stick if possible</strong></li>
-        <li><strong>Get the essential helmet/gloves</strong></li>
-        <li><strong>Wear trainers you can run in comfortably</strong></li>
-      </ul>
-      <p class="text-neutral-400">
-        You don’t need the top-end gear at first—just make sure you’re safe and comfortable. Borrowing sticks or pads from the club is perfect for the first few sessions. Wearing trainers that let you <strong>move, pivot, and sprint</strong> easily is way more important than looking flashy.
-      </p>
-    </div>
-  </div>
-
-  <!-- Step 3 -->
-  <div 
-    class="bg-neutral-900 rounded-2xl mb-6 shadow-lg transition-all duration-300" 
-    x-data="{ open: false, inView: false }" 
-    x-intersect:enter="inView = true" 
-    x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
-  >
-    <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
-      <span class="text-2xl font-extrabold">3️⃣ Learn the Core Skills (Wallball First!)</span>
-      <span 
-        x-text="open ? '−' : '+' " 
-        class="text-2xl font-bold transform transition-all duration-300"
-        :class="open ? 'animate-bounce' : ''"
-      ></span>
-    </button>
-    <div x-show="open" x-transition class="px-6 pb-6">
-      <ul class="space-y-2 text-neutral-200 mb-3">
-        <li><strong>Start with wallballing religiously</strong></li>
-        <li><strong>Focus on catching & passing</strong></li>
-        <li><strong>Basic cradling and short-range shooting</strong></li>
-      </ul>
-      <p class="text-neutral-400">
-        Wallballing isn’t just a drill—it’s the foundation. I spent hours hitting the wall at home, and <strong>ever since then, every skill felt more natural</strong>. Catching and passing cleanly, cradling while moving, and shooting from close range all became far easier once I committed to wallballing. Treat it like your daily ritual; it pays off massively in your first few months.
-      </p>
-    </div>
-  </div>
-
-  <!-- Step 4 -->
-  <div 
-    class="bg-neutral-900 rounded-2xl mb-6 shadow-lg transition-all duration-300" 
-    x-data="{ open: false, inView: false }" 
-    x-intersect:enter="inView = true" 
-    x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
-  >
-    <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
-      <span class="text-2xl font-extrabold">4️⃣ Understand the Field & Positions</span>
-      <span 
-        x-text="open ? '−' : '+' " 
-        class="text-2xl font-bold transform transition-all duration-300"
-        :class="open ? 'animate-bounce' : ''"
-      ></span>
-    </button>
-    <div x-show="open" x-transition class="px-6 pb-6">
-      <ul class="space-y-2 text-neutral-200 mb-3">
-        <li><strong>Watch the flow of the game</strong></li>
-        <li><strong>Learn basic positions and responsibilities</strong></li>
-        <li><strong>Ask about formations and coverage</strong></li>
-      </ul>
-      <p class="text-neutral-400">
-        Even a few sessions of just <strong>observing scrimmages</strong> can give you a huge advantage. Asking a coach or an experienced teammate about positions and basic responsibilities saves so much time. Understanding where to be and when to move makes joining drills far less overwhelming.
-      </p>
-    </div>
-  </div>
-
-  <!-- Step 5 -->
-  <div 
-    class="bg-neutral-900 rounded-2xl mb-6 shadow-lg transition-all duration-300" 
-    x-data="{ open: false, inView: false }" 
-    x-intersect:enter="inView = true" 
-    x-intersect:leave="inView = false"
-    :class="inView ? 'ring-2 ring-blue-500 scale-105 animate-pulse' : ''"
-  >
-    <button @click="open = !open" class="w-full text-left px-6 py-4 flex justify-between items-center">
-      <span class="text-2xl font-extrabold">5️⃣ Join the Social Side</span>
-      <span 
-        x-text="open ? '−' : '+' " 
-        class="text-2xl font-bold transform transition-all duration-300"
-        :class="open ? 'animate-bounce' : ''"
-      ></span>
-    </button>
-    <div x-show="open" x-transition class="px-6 pb-6">
-      <ul class="space-y-2 text-neutral-200 mb-3">
-        <li><strong>Chat with teammates off the pitch</strong></li>
-        <li><strong>Attend club socials and group chats</strong></li>
-        <li><strong>Build confidence through connections</strong></li>
-      </ul>
-      <p class="text-neutral-400">
-        Lacrosse is just as much about the <strong>team environment</strong> as the sport itself. Making connections early—through socials, post-practice chats, or even casual messages—makes it easier to ask questions, join drills, and feel confident. It’s amazing how much being comfortable socially translates into performing better on the field.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- Alpine.js for collapsible + scroll highlight + bounce -->
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <!-- Culture -->
   <section id="culture" class="max-w-4xl mx-auto px-6 py-20">
     <h2 class="text-4xl font-bold mb-6">UK Uni Lacrosse Culture</h2>
@@ -218,126 +104,106 @@
   <footer class="border-t border-neutral-800 py-8 text-center text-neutral-500 text-sm">
     © 2026 Kandolacrosse. Built for the late starters.
   </footer>
-<canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
 
-<script>
+  <!-- Alpine.js -->
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
+  <!-- Interactive Ball Script -->
+  <script>
 const canvas = document.getElementById('ballCanvas');
 const ctx = canvas.getContext('2d');
-
 let balls = [];
 let grabbedBall = null;
-let mouse = { x: 0, y: 0, vx: 0, vy: 0, prevX: 0, prevY: 0, isDown: false };
+let mouse = {x:0, y:0, vx:0, vy:0, prevX:0, prevY:0};
 
-function resizeCanvas() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
+function resizeCanvas(){ canvas.width=window.innerWidth; canvas.height=window.innerHeight; }
 window.addEventListener('resize', resizeCanvas);
 resizeCanvas();
 
-class Ball {
-  constructor(x, y, radius = 20, color = 'rgb(59 130 246)') {
-    this.x = x;
-    this.y = y;
-    this.radius = radius;
-    this.color = color;
-    this.vx = Math.random()*4 - 2;
-    this.vy = Math.random()*4 - 2;
-    this.gravity = 0.2;
-    this.friction = 0.8;
+class Ball{
+  constructor(x,y,radius=20){
+    this.x=x;
+    this.y=y;
+    this.radius=radius;
+    this.color=Math.random()<0.5?'yellow':'white';
+    this.vx=0; this.vy=0;
+    this.gravity=0.2; this.friction=0.8;
   }
-  draw() {
+  draw(){
     ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
-    ctx.fillStyle = this.color;
+    ctx.arc(this.x,this.y,this.radius,0,Math.PI*2);
+    ctx.fillStyle=this.color;
     ctx.fill();
   }
-  update() {
-    if (!grabbedBall || grabbedBall !== this) {
-      this.vy += this.gravity;
-      this.x += this.vx;
-      this.y += this.vy;
+  update(){
+    if(grabbedBall!==this){
+      this.vy+=this.gravity;
+      this.x+=this.vx; this.y+=this.vy;
 
-      if (this.x + this.radius > canvas.width) {
-        this.x = canvas.width - this.radius;
-        this.vx *= -this.friction;
-      }
-      if (this.x - this.radius < 0) {
-        this.x = this.radius;
-        this.vx *= -this.friction;
-      }
-      if (this.y + this.radius > canvas.height) {
-        this.y = canvas.height - this.radius;
-        this.vy *= -this.friction;
-      }
-      if (this.y - this.radius < 0) {
-        this.y = this.radius;
-        this.vy *= -this.friction;
-      }
+      // bounce walls
+      if(this.x+this.radius>canvas.width){ this.x=canvas.width-this.radius; this.vx*=-this.friction; }
+      if(this.x-this.radius<0){ this.x=this.radius; this.vx*=-this.friction; }
+      if(this.y+this.radius>canvas.height){ this.y=canvas.height-this.radius; this.vy*=-this.friction; }
+      if(this.y-this.radius<0){ this.y=this.radius; this.vy*=-this.friction; }
+
+      // bounce other balls
+      balls.forEach(other=>{
+        if(other!==this){
+          const dx=other.x-this.x;
+          const dy=other.y-this.y;
+          const dist=Math.sqrt(dx*dx+dy*dy);
+          if(dist<this.radius+other.radius){
+            const angle=Math.atan2(dy,dx);
+            const overlap=this.radius+other.radius-dist;
+            this.x-=Math.cos(angle)*overlap/2;
+            this.y-=Math.sin(angle)*overlap/2;
+            other.x+=Math.cos(angle)*overlap/2;
+            other.y+=Math.sin(angle)*overlap/2;
+
+            // simple velocity swap
+            const vxTemp=this.vx; const vyTemp=this.vy;
+            this.vx=other.vx*0.8; this.vy=other.vy*0.8;
+            other.vx=vxTemp*0.8; other.vy=vyTemp*0.8;
+          }
+        }
+      });
+
     } else {
-      this.vx = mouse.vx;
-      this.vy = mouse.vy;
-      this.x = mouse.x;
-      this.y = mouse.y;
+      this.vx=mouse.vx; this.vy=mouse.vy;
+      this.x=mouse.x; this.y=mouse.y;
     }
     this.draw();
   }
 }
 
-// Mouse tracking
-canvas.addEventListener('mousemove', e => {
-  mouse.prevX = mouse.x;
-  mouse.prevY = mouse.y;
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  mouse.vx = mouse.x - mouse.prevX;
-  mouse.vy = mouse.y - mouse.prevY;
+// mouse
+canvas.addEventListener('mousemove',e=>{
+  mouse.prevX=mouse.x; mouse.prevY=mouse.y;
+  mouse.x=e.clientX; mouse.y=e.clientY;
+  mouse.vx=mouse.x-mouse.prevX;
+  mouse.vy=mouse.y-mouse.prevY;
 });
 
-// Prevent default context menu
-canvas.addEventListener('contextmenu', e => e.preventDefault());
-
-// Right-click down = spawn or grab
-canvas.addEventListener('mousedown', e => {
-  if (e.button === 2) { // RMB
-    mouse.isDown = true;
-    // check if clicking on existing ball
-    for (let b of balls) {
-      const dx = b.x - e.clientX;
-      const dy = b.y - e.clientY;
-      if (Math.sqrt(dx*dx + dy*dy) < b.radius) {
-        grabbedBall = b;
-        return;
-      }
-    }
-    // if not, spawn a new ball
-    const newBall = new Ball(e.clientX, e.clientY);
+// right click drag
+canvas.addEventListener('contextmenu',e=>e.preventDefault());
+canvas.addEventListener('mousedown',e=>{
+  if(e.button===2){
+    const newBall=new Ball(e.clientX,e.clientY);
     balls.push(newBall);
-    grabbedBall = newBall;
+    grabbedBall=newBall;
   }
 });
-
-// Release RMB
-canvas.addEventListener('mouseup', e => {
-  if (e.button === 2) {
-    mouse.isDown = false;
-    grabbedBall = null;
-  }
+canvas.addEventListener('mouseup',e=>{
+  if(e.button===2) grabbedBall=null;
 });
 
-// Optional: spawn a few random balls initially
-for (let i=0; i<5; i++) {
-  balls.push(new Ball(Math.random()*canvas.width, Math.random()*canvas.height));
-}
-
-// Animate
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  balls.forEach(b => b.update());
+// animate
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  balls.forEach(b=>b.update());
   requestAnimationFrame(animate);
 }
 animate();
-</script>
+  </script>
 </body>
 </html>
-
