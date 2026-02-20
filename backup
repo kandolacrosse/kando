@@ -1,0 +1,82 @@
+index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KandolaCrosse</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-neutral-950 text-neutral-100">
+
+  <!-- Nav -->
+  <nav class="flex justify-between items-center px-6 py-4 border-b border-neutral-800">
+    <span class="font-bold text-lg">KandolaCrosse</span>
+    <div class="flex gap-6 text-sm text-neutral-300">
+      <a href="#home" class="hover:text-white">Home</a>
+      <a href="#learn" class="hover:text-white">Learn</a>
+      <a href="#gear" class="hover:text-white">Gear</a>
+      <a href="#culture" class="hover:text-white">Culture</a>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="home" class="flex flex-col items-center text-center px-6 py-24">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">KandolaCrosse</h1>
+    <p class="text-lg md:text-xl text-neutral-300 max-w-2xl mb-10">
+      Honest lacrosse advice, kit breakdowns, and real university-level experience —
+      built for players who are late to the game but serious about getting good.
+    </p>
+    <div class="flex gap-4">
+      <a href="#" class="px-6 py-3 rounded-2xl bg-white text-black font-medium">Watch on TikTok</a>
+      <a href="#" class="px-6 py-3 rounded-2xl border border-neutral-700">Join the Community</a>
+    </div>
+  </section>
+
+  <!-- Learn -->
+  <section id="learn" class="max-w-4xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold mb-6">Learn Lacrosse (Properly)</h2>
+    <p class="text-neutral-300 mb-6">
+      Built for people who didn’t grow up playing. No American bias. No elite waffle.
+    </p>
+    <ul class="space-y-3 text-neutral-400">
+      <li>• Starting lacrosse at university</li>
+      <li>• Positions explained simply</li>
+      <li>• What I’d do differently in my first year</li>
+      <li>• Training that actually translates</li>
+    </ul>
+  </section>
+
+  <!-- Gear -->
+  <section id="gear" class="max-w-4xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold mb-6">Gear & Stick Reviews</h2>
+    <p class="text-neutral-300 mb-6">
+      Honest reviews. No sponsors. Just whether it’s worth your money.
+    </p>
+    <ul class="space-y-3 text-neutral-400">
+      <li>• Beginner sticks (£ / ££ / £££)</li>
+      <li>• Heads vs complete sticks</li>
+      <li>• Gear mistakes to avoid</li>
+    </ul>
+  </section>
+
+  <!-- Culture -->
+  <section id="culture" class="max-w-4xl mx-auto px-6 py-20">
+    <h2 class="text-4xl font-bold mb-6">UK Uni Lacrosse Culture</h2>
+    <p class="text-neutral-300 mb-6">
+      The stuff nobody explains before you join.
+    </p>
+    <ul class="space-y-3 text-neutral-400">
+      <li>• What people get wrong</li>
+      <li>• Social vs performance expectations</li>
+      <li>• British chirps (not cringe)</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-800 py-8 text-center text-neutral-500 text-sm">
+    © 2026 KandolaCrosse. Built for the late starters.
+  </footer>
+
+</body>
+</html>
