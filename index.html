@@ -7,7 +7,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-neutral-950 text-neutral-100 font-sans">
+<body class="bg-neutral-950 text-neutral-100 font-sans">
 
+  <!-- Interactive Ball Background -->
+  <canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
+  
   <!-- Nav -->
   <nav class="flex justify-between items-center px-6 py-4 border-b border-neutral-800">
     <span class="font-bold text-lg">Kandolacrosse</span>
@@ -217,3 +221,107 @@
 
 </body>
 </html>
+<script>
+const canvas = document.getElementById('ballCanvas');
+const ctx = canvas.getContext('2d');
+
+let balls = [];
+let grabbedBall = null;
+let mouse = { x: 0, y: 0, vx: 0, vy: 0, prevX: 0, prevY: 0 };
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+
+class Ball {
+  constructor(x, y, radius = 20, color = 'rgb(59 130 246)') {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.vx = Math.random() * 4 - 2;
+    this.vy = Math.random() * 4 - 2;
+    this.gravity = 0.2;
+    this.friction = 0.8;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+  update() {
+    if (!grabbedBall || grabbedBall !== this) {
+      this.vy += this.gravity;
+      this.x += this.vx;
+      this.y += this.vy;
+
+      if (this.x + this.radius > canvas.width) {
+        this.x = canvas.width - this.radius;
+        this.vx *= -this.friction;
+      }
+      if (this.x - this.radius < 0) {
+        this.x = this.radius;
+        this.vx *= -this.friction;
+      }
+      if (this.y + this.radius > canvas.height) {
+        this.y = canvas.height - this.radius;
+        this.vy *= -this.friction;
+      }
+      if (this.y - this.radius < 0) {
+        this.y = this.radius;
+        this.vy *= -this.friction;
+      }
+    } else {
+      this.vx = mouse.vx;
+      this.vy = mouse.vy;
+      this.x = mouse.x;
+      this.y = mouse.y;
+    }
+    this.draw();
+  }
+}
+
+// Mouse
+canvas.addEventListener('mousemove', e => {
+  mouse.prevX = mouse.x;
+  mouse.prevY = mouse.y;
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+  mouse.vx = mouse.x - mouse.prevX;
+  mouse.vy = mouse.y - mouse.prevY;
+});
+
+canvas.addEventListener('contextmenu', e => e.preventDefault());
+canvas.addEventListener('mousedown', e => {
+  if (e.button === 2) {
+    for (let b of balls) {
+      const dx = b.x - e.clientX;
+      const dy = b.y - e.clientY;
+      if (Math.sqrt(dx*dx + dy*dy) < b.radius) {
+        grabbedBall = b;
+        break;
+      }
+    }
+  }
+});
+canvas.addEventListener('mouseup', e => {
+  if (e.button === 2) grabbedBall = null;
+});
+
+// Spawn balls
+for (let i=0; i<10; i++) {
+  balls.push(new Ball(Math.random()*canvas.width, Math.random()*canvas.height));
+}
+
+// Animate
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  balls.forEach(b => b.update());
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
