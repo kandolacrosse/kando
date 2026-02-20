@@ -218,13 +218,15 @@
   <footer class="border-t border-neutral-800 py-8 text-center text-neutral-500 text-sm">
     © 2026 Kandolacrosse. Built for the late starters.
   </footer>
+<canvas id="ballCanvas" class="fixed top-0 left-0 w-full h-full -z-10"></canvas>
+
 <script>
 const canvas = document.getElementById('ballCanvas');
 const ctx = canvas.getContext('2d');
 
 let balls = [];
 let grabbedBall = null;
-let mouse = { x: 0, y: 0, vx: 0, vy: 0, prevX: 0, prevY: 0 };
+let mouse = { x: 0, y: 0, vx: 0, vy: 0, prevX: 0, prevY: 0, isDown: false };
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -239,8 +241,8 @@ class Ball {
     this.y = y;
     this.radius = radius;
     this.color = color;
-    this.vx = Math.random() * 4 - 2;
-    this.vy = Math.random() * 4 - 2;
+    this.vx = Math.random()*4 - 2;
+    this.vy = Math.random()*4 - 2;
     this.gravity = 0.2;
     this.friction = 0.8;
   }
@@ -282,7 +284,7 @@ class Ball {
   }
 }
 
-// Mouse
+// Mouse tracking
 canvas.addEventListener('mousemove', e => {
   mouse.prevX = mouse.x;
   mouse.prevY = mouse.y;
@@ -292,25 +294,39 @@ canvas.addEventListener('mousemove', e => {
   mouse.vy = mouse.y - mouse.prevY;
 });
 
+// Prevent default context menu
 canvas.addEventListener('contextmenu', e => e.preventDefault());
+
+// Right-click down = spawn or grab
 canvas.addEventListener('mousedown', e => {
-  if (e.button === 2) {
+  if (e.button === 2) { // RMB
+    mouse.isDown = true;
+    // check if clicking on existing ball
     for (let b of balls) {
       const dx = b.x - e.clientX;
       const dy = b.y - e.clientY;
       if (Math.sqrt(dx*dx + dy*dy) < b.radius) {
         grabbedBall = b;
-        break;
+        return;
       }
     }
+    // if not, spawn a new ball
+    const newBall = new Ball(e.clientX, e.clientY);
+    balls.push(newBall);
+    grabbedBall = newBall;
   }
 });
+
+// Release RMB
 canvas.addEventListener('mouseup', e => {
-  if (e.button === 2) grabbedBall = null;
+  if (e.button === 2) {
+    mouse.isDown = false;
+    grabbedBall = null;
+  }
 });
 
-// Spawn balls
-for (let i=0; i<10; i++) {
+// Optional: spawn a few random balls initially
+for (let i=0; i<5; i++) {
   balls.push(new Ball(Math.random()*canvas.width, Math.random()*canvas.height));
 }
 
